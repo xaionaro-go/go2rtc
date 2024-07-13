@@ -3,7 +3,7 @@ package mjpeg
 import (
 	"bytes"
 	"encoding/binary"
-	"github.com/AlexxIT/go2rtc/pkg/core"
+	"github.com/xaionaro-go/go2rtc/pkg/core"
 	"github.com/pion/rtp"
 	"image"
 	"image/jpeg"

@@ -3,10 +3,10 @@ package webrtc
 import (
 	"errors"
 
-	"github.com/AlexxIT/go2rtc/pkg/core"
-	"github.com/AlexxIT/go2rtc/pkg/h264"
-	"github.com/AlexxIT/go2rtc/pkg/h265"
-	"github.com/AlexxIT/go2rtc/pkg/pcm"
+	"github.com/xaionaro-go/go2rtc/pkg/core"
+	"github.com/xaionaro-go/go2rtc/pkg/h264"
+	"github.com/xaionaro-go/go2rtc/pkg/h265"
+	"github.com/xaionaro-go/go2rtc/pkg/pcm"
 	"github.com/pion/rtp"
 )
 
@@ -72,7 +72,7 @@ func (c *Conn) AddTrack(media *core.Media, codec *core.Codec, track *core.Receiv
 			sender.Handler = pcm.ResampleToG711(track.Codec, 8000, sender.Handler)
 		}
 
-		// Fix audio quality https://github.com/AlexxIT/WebRTC/issues/500
+		// Fix audio quality https://github.com/xaionaro-go/WebRTC/issues/500
 		sender.Handler = pcm.RepackG711(false, sender.Handler)
 	}
 

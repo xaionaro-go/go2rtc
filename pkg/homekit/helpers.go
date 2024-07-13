@@ -4,10 +4,10 @@ import (
 	"encoding/hex"
 	"slices"
 
-	"github.com/AlexxIT/go2rtc/pkg/aac"
-	"github.com/AlexxIT/go2rtc/pkg/core"
-	"github.com/AlexxIT/go2rtc/pkg/h264"
-	"github.com/AlexxIT/go2rtc/pkg/hap/camera"
+	"github.com/xaionaro-go/go2rtc/pkg/aac"
+	"github.com/xaionaro-go/go2rtc/pkg/core"
+	"github.com/xaionaro-go/go2rtc/pkg/h264"
+	"github.com/xaionaro-go/go2rtc/pkg/hap/camera"
 )
 
 var videoCodecs = [...]string{core.CodecH264}

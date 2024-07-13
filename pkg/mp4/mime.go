@@ -1,8 +1,8 @@
 package mp4
 
 import (
-	"github.com/AlexxIT/go2rtc/pkg/core"
-	"github.com/AlexxIT/go2rtc/pkg/h264"
+	"github.com/xaionaro-go/go2rtc/pkg/core"
+	"github.com/xaionaro-go/go2rtc/pkg/h264"
 )
 
 const (

@@ -25,7 +25,7 @@ Interactive [OpenAPI](https://alexxit.github.io/go2rtc/api/).
 - You can write your viewer from the scratch
 - You can extend the built-in viewer - `www/video-rtc.js`
 - Check example - `www/video-stream.js`
-- Check example - https://github.com/AlexxIT/WebRTC
+- Check example - https://github.com/xaionaro-go/WebRTC
 
 `video-rtc.js` features:
 

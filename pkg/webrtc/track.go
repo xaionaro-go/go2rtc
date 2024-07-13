@@ -63,12 +63,12 @@ func (t *Track) Kind() webrtc.RTPCodecType {
 }
 
 func (t *Track) WriteRTP(payloadType uint8, packet *rtp.Packet) (err error) {
-	// using mutex because Unbind https://github.com/AlexxIT/go2rtc/issues/994
+	// using mutex because Unbind https://github.com/xaionaro-go/go2rtc/issues/994
 	t.mu.Lock()
 
 	// in case when we start WriteRTP before Track.Bind
 	if t.writer != nil {
-		// important to have internal counter if input packets from different sources
+		// important to have internalpkg counter if input packets from different sources
 		t.sequence++
 
 		header := packet.Header

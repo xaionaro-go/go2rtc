@@ -118,25 +118,25 @@ export class VideoRTC extends HTMLElement {
         this.mseCodecs = '';
 
         /**
-         * [internal] Disconnect TimeoutID.
+         * [internalpkg] Disconnect TimeoutID.
          * @type {number}
          */
         this.disconnectTID = 0;
 
         /**
-         * [internal] Reconnect TimeoutID.
+         * [internalpkg] Reconnect TimeoutID.
          * @type {number}
          */
         this.reconnectTID = 0;
 
         /**
-         * [internal] Handler for receiving Binary from WebSocket.
+         * [internalpkg] Handler for receiving Binary from WebSocket.
          * @type {Function}
          */
         this.ondata = null;
 
         /**
-         * [internal] Handlers list for receiving JSON from WebSocket.
+         * [internalpkg] Handlers list for receiving JSON from WebSocket.
          * @type {Object.<string,Function>}
          */
         this.onmessage = null;

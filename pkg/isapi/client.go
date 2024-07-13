@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/AlexxIT/go2rtc/pkg/core"
-	"github.com/AlexxIT/go2rtc/pkg/tcp"
+	"github.com/xaionaro-go/go2rtc/pkg/core"
+	"github.com/xaionaro-go/go2rtc/pkg/tcp"
 )
 
 // Deprecated: should be rewritten to core.Connection

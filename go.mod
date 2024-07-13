@@ -1,4 +1,4 @@
-module github.com/AlexxIT/go2rtc
+module github.com/xaionaro-go/go2rtc
 
 go 1.22
 

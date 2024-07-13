@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/AlexxIT/go2rtc/pkg/mdns"
+	"github.com/xaionaro-go/go2rtc/pkg/mdns"
 )
 
 func main() {

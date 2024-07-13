@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 
-	"github.com/AlexxIT/go2rtc/pkg/core"
+	"github.com/xaionaro-go/go2rtc/pkg/core"
 	"github.com/pion/rtp"
 )
 
