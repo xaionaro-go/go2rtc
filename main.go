@@ -1,6 +1,12 @@
 package main
 
 import (
+	"flag"
+	"fmt"
+	"os"
+	"os/exec"
+	"runtime"
+
 	"github.com/xaionaro-go/go2rtc/internalpkg/api"
 	"github.com/xaionaro-go/go2rtc/internalpkg/api/ws"
 	"github.com/xaionaro-go/go2rtc/internalpkg/app"
@@ -8,7 +14,7 @@ import (
 	"github.com/xaionaro-go/go2rtc/internalpkg/debug"
 	"github.com/xaionaro-go/go2rtc/internalpkg/dvrip"
 	"github.com/xaionaro-go/go2rtc/internalpkg/echo"
-	"github.com/xaionaro-go/go2rtc/internalpkg/exec"
+	xexec "github.com/xaionaro-go/go2rtc/internalpkg/exec"
 	"github.com/xaionaro-go/go2rtc/internalpkg/expr"
 	"github.com/xaionaro-go/go2rtc/internalpkg/ffmpeg"
 	"github.com/xaionaro-go/go2rtc/internalpkg/gopro"
@@ -35,12 +41,58 @@ import (
 	"github.com/xaionaro-go/go2rtc/pkg/shell"
 )
 
+const usage = `Usage of go2rtc:
+
+  -c, --config   Path to config file or config string as YAML or JSON, support multiple
+  -d, --daemon   Run in background
+  -v, --version  Print version and exit
+`
+
 func main() {
+
+	// 0. app
+
+	var config app.FlagConfig
+	var daemon bool
+	var version bool
+
+	flag.Var(&config, "config", "")
+	flag.Var(&config, "c", "")
+	flag.BoolVar(&daemon, "daemon", false, "")
+	flag.BoolVar(&daemon, "d", false, "")
+	flag.BoolVar(&version, "version", false, "")
+	flag.BoolVar(&version, "v", false, "")
+
+	flag.Usage = func() { fmt.Print(usage) }
+	flag.Parse()
+
 	app.Version = "1.9.4"
 
-	// 1. Core modules: app, api/ws, streams
+	app.SetConfigPaths(config)
+	app.Init()
 
-	app.Init() // init config and logs
+	if version {
+		fmt.Printf("go2rtc version %s (%s) %s/%s\n", app.Info["version"], app.Info["revision"], runtime.GOOS, runtime.GOARCH)
+		os.Exit(0)
+	}
+
+	if daemon && os.Getppid() != 1 {
+		if runtime.GOOS == "windows" {
+			fmt.Println("Daemon mode is not supported on Windows")
+			os.Exit(1)
+		}
+
+		// Re-run the program in background and exit
+		cmd := exec.Command(os.Args[0], os.Args[1:]...)
+		if err := cmd.Start(); err != nil {
+			fmt.Println("Failed to start daemon:", err)
+			os.Exit(1)
+		}
+		fmt.Println("Running in daemon mode with PID:", cmd.Process.Pid)
+		os.Exit(0)
+	}
+
+	// 1. Core modules: api/ws, streams
 
 	api.Init() // init API before all others
 	ws.Init()  // init WS API endpoint
@@ -67,7 +119,7 @@ func main() {
 	// 5. Other sources
 
 	rtmp.Init()     // rtmp source
-	exec.Init()     // exec source
+	xexec.Init()    // exec source
 	ffmpeg.Init()   // ffmpeg source
 	echo.Init()     // echo source
 	ivideon.Init()  // ivideon source

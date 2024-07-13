@@ -13,8 +13,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/xaionaro-go/go2rtc/internalpkg/app"
 	"github.com/rs/zerolog"
+	"github.com/xaionaro-go/go2rtc/internalpkg/app"
 )
 
 func Init() {

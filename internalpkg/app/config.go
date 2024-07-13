@@ -34,20 +34,26 @@ func PatchConfig(key string, value any, path ...string) error {
 	return os.WriteFile(ConfigPath, b, 0644)
 }
 
-type flagConfig []string
+type FlagConfig []string
 
-func (c *flagConfig) String() string {
+func (c *FlagConfig) String() string {
 	return strings.Join(*c, " ")
 }
 
-func (c *flagConfig) Set(value string) error {
+func (c *FlagConfig) Set(value string) error {
 	*c = append(*c, value)
 	return nil
 }
 
 var configs [][]byte
 
-func initConfig(confs flagConfig) {
+func SetConfigs(_configs [][]byte) {
+	configs = _configs
+}
+
+func SetConfigPaths(confs FlagConfig) {
+	var _configs [][]byte
+
 	if confs == nil {
 		confs = []string{"go2rtc.yaml"}
 	}
@@ -58,9 +64,9 @@ func initConfig(confs flagConfig) {
 		}
 		if conf[0] == '{' {
 			// config as raw YAML or JSON
-			configs = append(configs, []byte(conf))
+			_configs = append(_configs, []byte(conf))
 		} else if data := parseConfString(conf); data != nil {
-			configs = append(configs, data)
+			_configs = append(_configs, data)
 		} else {
 			// config as file
 			if ConfigPath == "" {
@@ -72,9 +78,10 @@ func initConfig(confs flagConfig) {
 			}
 
 			data = []byte(shell.ReplaceEnvVars(string(data)))
-			configs = append(configs, data)
+			_configs = append(_configs, data)
 		}
 	}
+	SetConfigs(_configs)
 
 	if ConfigPath != "" {
 		if !filepath.IsAbs(ConfigPath) {
